@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useMemo, useEffect } from 'react';
 import { Form, Modal, Select, Spin, Avatar } from 'antd';
 import { AppContext } from '../../Context/AppProvider';
 import { debounce } from 'lodash';
@@ -15,7 +15,7 @@ function DebounceSelect({
     const [fetching, setFetching] = useState(false);
     const [options, setOptions] = useState([]);
 
-    const debounceFetcher = React.useMemo(() => {
+    const debounceFetcher = useMemo(() => {
         const loadOptions = (value) => {
             setOptions([]);
             setFetching(true);
@@ -29,7 +29,7 @@ function DebounceSelect({
         return debounce(loadOptions, debounceTimeout);
     }, [debounceTimeout, fetchOptions, curMembers]);
 
-    React.useEffect(() => {
+    useEffect(() => {
         return () => {
             // clear when unmount
             setOptions([]);
