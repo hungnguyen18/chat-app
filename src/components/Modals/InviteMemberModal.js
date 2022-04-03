@@ -38,6 +38,7 @@ function DebounceSelect({
 
     return (
         <Select
+            labelInValue
             filterOption={false}
             onSearch={debounceFetcher}
             notFoundContent={fetching ? <Spin size='small' /> : null}
