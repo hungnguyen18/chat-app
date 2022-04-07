@@ -1,6 +1,6 @@
 import React, { useContext, useState, useMemo, useEffect } from 'react';
 import { Form, Modal, Select, Spin, Avatar } from 'antd';
-import { AppContext } from '../../Context/AppProvider';
+import { AppContext } from '../../context/AppProvider';
 import { debounce } from 'lodash';
 import { db } from '../../firebase/config';
 

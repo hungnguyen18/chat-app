@@ -4,9 +4,9 @@ import { Button, Avatar, Tooltip, Form, Input, Alert } from 'antd';
 import { UserAddOutlined } from '@ant-design/icons';
 
 import Message from './Message';
-import { AppContext } from '../../Context/AppProvider';
+import { AppContext } from '../../context/AppProvider';
 import { addDocument } from '../../firebase/services';
-import { AuthContext } from '../../Context/AuthProvider';
+import { AuthContext } from '../../context/AuthProvider';
 import useFirestore from '../../hooks/useFirestore';
 
 const HeaderStyled = styled.div`

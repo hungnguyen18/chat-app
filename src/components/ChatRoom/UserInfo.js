@@ -4,8 +4,8 @@ import styled from 'styled-components';
 import { LogoutOutlined } from '@ant-design/icons';
 
 import { auth, db } from '../../firebase/config';
-import { AuthContext } from '../../Context/AuthProvider';
-import { AppContext } from '../../Context/AppProvider';
+import { AuthContext } from '../../context/AuthProvider';
+import { AppContext } from '../../context/AppProvider';
 
 const WrapperStyled = styled.div`
     display: flex;
