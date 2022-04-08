@@ -9,20 +9,16 @@ module.exports = {
     module: {
         rules: [
             {
+                enforce: 'pre',
                 test: /\.js$/, // Sẽ sử dụng babel-loader cho những file .js
+                loader: 'source-map-loader',
                 exclude: /node_modules/, // Loại trừ thư mục node_modules
+                exclude: /node_modules\/@firebase\/auth/, //to just exclude firebase auth from source-map
                 use: ['babel-loader'],
             },
             {
                 test: /\.css$/, // Sử dụng style-loader, css-loader cho file .css
                 use: ['style-loader', 'css-loader'],
-            },
-            {
-                enforce: 'pre',
-                test: /\.js$/,
-                loader: 'source-map-loader',
-                exclude: /node_modules\/@firebase/, //to exclude firebase from source-map
-                exclude: /node_modules\/@firebase\/auth/, //to just exclude firebase auth from source-map
             },
         ],
     },
