@@ -18,7 +18,7 @@ const SidebarStyled = styled.div`
   height: 100vh;
 `;
 
-export default function () {
+export default function SideBar() {
   const { clearState } = React.useContext(AppContext);
 
   return (
