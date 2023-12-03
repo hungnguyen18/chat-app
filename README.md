@@ -35,6 +35,28 @@ The Chat App uses the following technologies:
 ## Architecture Flow
 
 In the architecture flow:
+```mermaid
+  sequenceDiagram
+    participant User
+    participant App
+    participant Firebase
+
+    User->>App: Đăng nhập OAuth 2.0
+    App->>Firebase: Gửi yêu cầu đăng nhập
+    Firebase-->>App: Xác thực đăng nhập thành công
+    App->>Firebase: Lưu thông tin người dùng vào Firebase Database
+    Firebase-->>App: Lưu thành công
+
+    User->>App: Tạo phòng chat
+    App->>Firebase: Tạo phòng chat mới
+    Firebase-->>App: Phòng chat được tạo thành công
+    App->>Firebase: Lưu thông tin thành viên vào phòng chat
+    Firebase-->>App: Thành viên được lưu thành công
+
+    User->>App: Nhắn tin
+    App->>Firebase: Lưu tin nhắn vào Firebase Database
+    Firebase-->>App: Tin nhắn được lưu thành công
+```
 
 1. Users use the app to log in using OAuth 2.0.
 2. The app sends a login request to Firebase for authentication.
