@@ -1,70 +1,66 @@
-# Getting Started with Create React App
+# Chat App Documentation
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is the documentation for the Chat App project. You can find the project repository on GitHub: [hungnguyen18/chat-app](https://github.com/hungnguyen18/chat-app).
 
-## Available Scripts
+## Introduction
 
-In the project directory, you can run:
+The Chat App allows users to create chat rooms and engage in real-time conversations on various topics. It supports authentication using Google and Facebook accounts, utilizing the OAuth 2.0 protocol for secure authentication.
 
-### `npm start`
+To understand more about OAuth 2.0, you can refer to the following resource: [What is OAuth 2.0](https://auth0.com/intro-to-iam/what-is-oauth-2).
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Features
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+1. Google and Facebook Authentication: Users can log in to the application using their Google or Facebook accounts, ensuring security through OAuth 2.0.
+2. Create Chat Rooms: Users can create new chat rooms to initiate conversations on different topics.
+3. Add Users to Chat Rooms: Users have the ability to invite and add other users to chat rooms.
+4. Real-time Chat using Firebase Realtime Database: The application utilizes Firebase Realtime Database to provide real-time chat functionality.
 
-### `npm test`
+## Technology Stack
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+The Chat App uses the following technologies:
 
-### `npm run build`
+- UI Library:
+  - React JS: [https://react.dev/](https://react.dev/)
+  - Ant Design: [https://ant.design/](https://ant.design/)
+  - Styled Components: [https://styled-components.com/](https://styled-components.com/)
+- Database:
+  - Firebase: [https://firebase.google.com/](https://firebase.google.com/)
+    - Authentication: OAuth 2.0 (Google, Facebook)
+      - [Firebase Authentication Documentation](https://firebase.google.com/docs/auth/web/start)
+      - [How to Set Up Firebase Authentication with React](https://hackernoon.com/how-to-set-up-firebase-authentication-with-react)
+    - Database: Firestore
+- Deployment: Firebase Hosting
+  - Firebase Hosting Documentation: [https://firebase.google.com/docs/hosting](https://firebase.google.com/docs/hosting)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Architecture Flow
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+In the architecture flow:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+1. Users use the app to log in using OAuth 2.0.
+2. The app sends a login request to Firebase for authentication.
+3. Firebase authenticates the login and sends the successful authentication result back to the app.
+4. The app stores user information in Firebase Database through Firebase.
+5. Users create chat rooms within the app.
+6. The app sends a request to create a new chat room to Firebase.
+7. Firebase creates the new chat room and sends the successful result back to the app.
+8. The app stores member information in the chat room through Firebase.
+9. Users send messages within the app.
+10. The app stores messages in Firebase Database through Firebase.
 
-### `npm run eject`
+## Deployment
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+The Chat App is deployed at [https://chat-app-822db.web.app/](https://chat-app-822db.web.app/). It is deployed using Firebase Hosting.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+For deployment using Firebase, you can refer to the Firebase Hosting Documentation: [https://firebase.google.com/docs/hosting](https://firebase.google.com/docs/hosting).
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## Continuous Integration with GitHub Actions
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+The project includes a GitHub Actions workflow for automatic deployment on merge to the `main` branch. The deployment workflow is defined in the `.github/workflows/firebase-hosting.yml` file in the repository.
 
-## Learn More
+For more information on GitHub Actions and how to set up continuous integration, you can refer to the GitHub Actions Documentation: [Understanding GitHub Actions](https://docs.github.com/en/actions/learn-github-actions/understanding-github-actions).
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Please note that the provided workflow uses Firebase service account credentials and GitHub secrets for secure deployment. Make sure to set up the required secrets and adjust the workflow according to your project's needs.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Readme.md File
 
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Based on the provided documentation, you can create a `readme.md` file for your project repository. The `readme.md` file will serve as a guide for users to understand the project and its functionalities.
