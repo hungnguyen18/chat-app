@@ -1,4 +1,4 @@
-import React, { useContext, useMemo, useRef, useState } from "react";
+import React, { useContext, useEffect, useMemo, useRef, useState } from "react";
 import styled from "styled-components";
 import { Button, Avatar, Tooltip, Form, Input, Alert } from "antd";
 import { UserAddOutlined } from "@ant-design/icons";
@@ -67,12 +67,14 @@ const FormStyled = styled(Form)`
 `;
 
 const MessageListStyled = styled.div`
+  padding: 0px 30px;
   max-height: 100%;
   overflow-y: auto;
 `;
 
 export default function ChatWindow() {
   const inputRef = useRef(null);
+  const messageListRef = useRef(null);
   const { members, selectedRoom, setIsInviteMemberVisible } =
     useContext(AppContext);
 
@@ -114,6 +116,17 @@ export default function ChatWindow() {
 
   const messages = useFirestore("messages", condition);
 
+  useEffect(() => {
+    if (messageListRef.current) {
+      messageListRef.current.scrollTop = messageListRef.current.scrollHeight;
+    }
+  }, [messages]);
+
+  useEffect(() => {
+    // Tự động focus vào input sau khi tin nhắn được gửi
+    inputRef.current.focus();
+  }, [messages]);
+
   return (
     <WrapperStyled>
       {selectedRoom.id ? (
@@ -147,7 +160,7 @@ export default function ChatWindow() {
             </ButtonGroupStyled>
           </HeaderStyled>
           <ContentStyled>
-            <MessageListStyled>
+            <MessageListStyled ref={messageListRef}>
               {messages.map((mes) => (
                 <Message
                   key={mes.id}
@@ -168,9 +181,14 @@ export default function ChatWindow() {
                   bordered={false}
                   autoComplete="off"
                   ref={inputRef}
+                  value={inputValue}
                 />
               </Form.Item>
-              <Button type="primary" onClick={handleOnSubmit}>
+              <Button
+                type="primary"
+                onClick={handleOnSubmit}
+                style={{ marginLeft: "10px" }}
+              >
                 Gửi
               </Button>
             </FormStyled>
