@@ -124,6 +124,7 @@ export default function ChatWindow() {
 
   useEffect(() => {
     // Tự động focus vào input sau khi tin nhắn được gửi
+    if (!inputRef.current) return;
     inputRef.current.focus();
   }, [messages]);
 
