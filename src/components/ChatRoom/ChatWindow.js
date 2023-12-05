@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useMemo, useRef, useState } from "react";
 import styled from "styled-components";
-import { Button, Avatar, Tooltip, Form, Input, Alert } from "antd";
+import { Button, Avatar, Tooltip, Form, Input, Alert, Badge } from "antd";
 import { UserAddOutlined } from "@ant-design/icons";
 
 import Message from "./Message";
@@ -114,7 +114,15 @@ export default function ChatWindow() {
     [selectedRoom.id]
   );
 
-  const messages = useFirestore("messages", condition);
+  const { documents: messages } = useFirestore("messages", condition);
+
+  const { updateUser } = useFirestore("users", null);
+  const handleUpdateUser = () => {
+    const newData = {
+      isOnline: true,
+    };
+    updateUser(uid, newData);
+  };
 
   useEffect(() => {
     if (messageListRef.current) {
@@ -143,21 +151,31 @@ export default function ChatWindow() {
               <Button
                 icon={<UserAddOutlined />}
                 type="text"
+                onClick={() => handleUpdateUser()}
+              >
+                Mời
+              </Button>
+              <Button
+                icon={<UserAddOutlined />}
+                type="text"
                 onClick={() => setIsInviteMemberVisible(true)}
               >
                 Mời
               </Button>
-              <Avatar.Group size="small" maxCount={2}>
-                {members.map((member) => (
-                  <Tooltip title={member.displayName} key={member.id}>
-                    <Avatar src={member.photoURL}>
-                      {member.photoURL
-                        ? ""
-                        : member.displayName?.charAt(0)?.toUpperCase()}
-                    </Avatar>
-                  </Tooltip>
-                ))}
-              </Avatar.Group>
+
+              {members.map((member) => (
+                <Tooltip title={member.displayName} key={member.id}>
+                  <Badge dot={member.isOnline || false} color={"green"}>
+                    <Avatar
+                      size={30}
+                      src={
+                        member.photoURL ||
+                        member.displayName?.charAt(0)?.toUpperCase()
+                      }
+                    ></Avatar>
+                  </Badge>
+                </Tooltip>
+              ))}
             </ButtonGroupStyled>
           </HeaderStyled>
           <ContentStyled>
@@ -170,6 +188,7 @@ export default function ChatWindow() {
                   displayName={mes.displayName}
                   createdAt={mes.createdAt}
                   isOwner={uid === mes.uid}
+                  isOnline={false}
                 />
               ))}
             </MessageListStyled>

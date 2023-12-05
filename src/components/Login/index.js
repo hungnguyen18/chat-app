@@ -21,6 +21,7 @@ export default function Login() {
         uid: user.uid,
         providerId: additionalUserInfo.providerId,
         keywords: generateKeywords(user.displayName?.toLowerCase()),
+        isOnline: true,
       });
     }
   };

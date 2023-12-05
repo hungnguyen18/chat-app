@@ -1,5 +1,5 @@
 import React from "react";
-import { Avatar, Card, Typography } from "antd";
+import { Avatar, Card, Typography, Badge } from "antd";
 import { formatRelative } from "date-fns/esm";
 
 function formatDate(seconds) {
@@ -21,6 +21,7 @@ export default function Message({
   createdAt,
   photoURL,
   isOwner,
+  isOnline,
 }) {
   return isOwner ? (
     <div
@@ -79,15 +80,17 @@ export default function Message({
             <Typography.Text className="content">{text}</Typography.Text>
           </div>
         </Card>
-        <Avatar
-          size="small"
-          src={photoURL}
-          style={{
-            marginLeft: "10px",
-          }}
-        >
-          {photoURL ? "" : displayName?.charAt(0)?.toUpperCase()}
-        </Avatar>
+        <Badge dot={isOnline}>
+          <Avatar
+            size={"default"}
+            src={photoURL}
+            style={{
+              marginLeft: "10px",
+            }}
+          >
+            {photoURL ? "" : displayName?.charAt(0)?.toUpperCase()}
+          </Avatar>
+        </Badge>
       </div>
     </div>
   ) : (
@@ -104,15 +107,17 @@ export default function Message({
           display: "flex",
         }}
       >
-        <Avatar
-          size="small"
-          src={photoURL}
-          style={{
-            marginRight: "10px",
-          }}
-        >
-          {photoURL ? "" : displayName?.charAt(0)?.toUpperCase()}
-        </Avatar>
+        <Badge dot={isOnline}>
+          <Avatar
+            size={"default"}
+            src={photoURL}
+            style={{
+              marginRight: "10px",
+            }}
+          >
+            {photoURL ? "" : displayName?.charAt(0)?.toUpperCase()}
+          </Avatar>
+        </Badge>
         <Card
           bodyStyle={{
             display: "flex",

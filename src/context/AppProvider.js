@@ -1,4 +1,10 @@
-import React, { createContext, useContext, useMemo, useState } from "react";
+import React, {
+  createContext,
+  useContext,
+  useMemo,
+  useState,
+  useEffect,
+} from "react";
 
 import useFirestore from "../hooks/useFirestore";
 import { AuthContext } from "./AuthProvider";
@@ -14,6 +20,36 @@ export default function AppProvider({ children }) {
     user: { uid },
   } = useContext(AuthContext);
 
+  const { updateUser } = useFirestore("users", null);
+
+  useEffect(() => {
+    const handleUnload = async (e) => {
+      e.preventDefault();
+      e.returnValue = ""; // Cho phép đóng tab
+
+      await updateUser(uid, {
+        isOnline: false,
+      });
+    };
+
+    window.addEventListener("beforeunload", handleUnload);
+
+    return () => {
+      window.removeEventListener("beforeunload", handleUnload);
+    };
+  }, []);
+
+  useEffect(async () => {
+    // Mã thực thi khi component được mount
+    await updateUser(uid, {
+      isOnline: true,
+    });
+
+    return async () => {
+      // Mã thực thi khi component bị unmount
+    };
+  }, []); // Tham số thứ hai là một mảng rỗng để chỉ thực thi mã khi component được mount lần đầu tiên
+
   const roomsCondition = useMemo(() => {
     return {
       fieldName: "members",
@@ -22,7 +58,7 @@ export default function AppProvider({ children }) {
     };
   }, [uid]);
 
-  const rooms = useFirestore("rooms", roomsCondition);
+  const { documents: rooms } = useFirestore("rooms", roomsCondition);
 
   const selectedRoom = useMemo(
     () => rooms.find((room) => room.id === selectedRoomId) || {},
@@ -37,7 +73,7 @@ export default function AppProvider({ children }) {
     };
   }, [selectedRoom.members]);
 
-  const members = useFirestore("users", usersCondition);
+  const { documents: members } = useFirestore("users", usersCondition);
 
   const clearState = () => {
     setSelectedRoomId("");

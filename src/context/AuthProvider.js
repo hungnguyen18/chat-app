@@ -15,6 +15,7 @@ export default function AuthProvider({ children }) {
     const unsubscribed = auth.onAuthStateChanged((user) => {
       if (user) {
         const { displayName, email, uid, photoURL } = user;
+        console.log(user);
 
         setUser({ displayName, email, uid, photoURL });
 

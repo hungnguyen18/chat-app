@@ -32,5 +32,19 @@ export default function useFirestore(collection, condition) {
     return unsubscribe;
   }, [collection, condition]);
 
-  return documents;
+  const updateUser = async (uid, data) => {
+    try {
+      const userRef = db.collection(collection).where("uid", "==", uid);
+      await userRef.get().then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          doc.ref.update(data);
+        });
+      });
+      console.log("User updated successfully!");
+    } catch (error) {
+      console.error("Error updating user: ", error);
+    }
+  };
+
+  return { documents, updateUser };
 }
